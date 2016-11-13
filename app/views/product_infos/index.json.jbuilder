@@ -1,0 +1,1 @@
+json.array! @product_infos, partial: 'product_infos/product_info', as: :product_info
