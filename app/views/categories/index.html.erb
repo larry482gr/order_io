@@ -17,14 +17,16 @@
       <tr>
         <td><%= category.label %></td>
         <td><%= category.ordering %></td>
-        <td><%= category.language %></td>
+        <td><%= Language.find(category.language).option_label %></td>
         <td><%= link_to 'Show', category, class: 'btn btn-primary btn-xs' %></td>
         <td><%= link_to 'Edit', edit_category_path(category), class: 'btn btn-warning btn-xs' %></td>
-        <td><%= link_to 'Destroy', category, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Remove', category, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @categories %>
 
 <br>
 

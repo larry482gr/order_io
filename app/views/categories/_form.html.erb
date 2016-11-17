@@ -1,32 +1,37 @@
-<%= form_for(category) do |f| %>
-  <% if category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
+<div class="row">
+  <div class="col-md-4">
+    <%= form_for(category) do |f| %>
+      <% if category.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
 
-      <ul>
-      <% category.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% category.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :label %>
-    <%= f.text_field :label %>
-  </div>
+      <div class="form-group">
+        <%= f.label :label %>
+        <%= f.text_field :label, class: 'form-control' %>
+      </div>
 
-  <div class="field">
-    <%= f.label :ordering %>
-    <%= f.number_field :ordering %>
-  </div>
+      <div class="form-group">
+        <%= f.label :ordering %>
+        <%= f.number_field :ordering, class: 'form-control', min: 1, value: Category.where(language_id: current_user.language_id).count + 1 %>
+      </div>
 
-  <div class="field">
-    <%= f.label :language_id %>
-    <%= f.text_field :language_id %>
-  </div>
+        <div class="form-group">
+          <%= f.label :language %>
+          <%= f.collection_select :language_id, Language.order(:id), :id, :option_label, {include_blank: false}, { :class => 'form-control', :value => current_user.language_id} %>
+          <%#= f.select("post", "person_id", Person.all.collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit %>
+      <div class="actions">
+        <%= f.submit 'Create Category', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

@@ -25,14 +25,16 @@
         <td><%= product.sizes %></td>
         <td><%= product.prices %></td>
         <td><%= product.ordering %></td>
-        <td><%= product.language %></td>
+        <td><%= Language.find(product.language).option_label %></td>
         <td><%= link_to 'Show', product, class: 'btn btn-primary btn-xs' %></td>
         <td><%= link_to 'Edit', edit_product_path(product), class: 'btn btn-warning btn-xs' %></td>
-        <td><%= link_to 'Destroy', product, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Remove', product, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @products %>
 
 <br>
 

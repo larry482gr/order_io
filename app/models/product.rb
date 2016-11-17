@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  mount_uploader :photo, ProductPhotoUploader
+
   DEFAULT = 'default'
 
   belongs_to :language

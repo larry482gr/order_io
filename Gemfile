@@ -34,7 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'i18n-js'
 
 # File uploads
-gem 'carrierwave'
+gem 'carrierwave', '~> 1.0.0.rc'
 
 # Image Resize
 gem 'mini_magick', require: 'mini_magick'

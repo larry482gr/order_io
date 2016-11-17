@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th>Label</th>
-      <th>Language</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,14 +14,15 @@
     <% @tables.each do |table| %>
       <tr>
         <td><%= table.label %></td>
-        <td><%= table.language %></td>
         <td><%= link_to 'Show', table, class: 'btn btn-primary btn-xs' %></td>
         <td><%= link_to 'Edit', edit_table_path(table), class: 'btn btn-warning btn-xs' %></td>
-        <td><%= link_to 'Destroy', table, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Remove', table, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @tables %>
 
 <br>
 

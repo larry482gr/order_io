@@ -16,7 +16,7 @@
         <td><%= order.table %></td>
         <td><%= link_to 'Show', order, class: 'btn btn-primary btn-xs' %></td>
         <td><%= link_to 'Edit', edit_order_path(order), class: 'btn btn-warning btn-xs' %></td>
-        <td><%= link_to 'Destroy', order, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Remove', order, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

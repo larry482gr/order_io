@@ -4,7 +4,7 @@ class TablesController < ApplicationController
   # GET /tables
   # GET /tables.json
   def index
-    @tables = Table.all
+    @tables = Table.all.page(params[:page]).per(params[:limit])
   end
 
   # GET /tables/1
@@ -69,6 +69,6 @@ class TablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def table_params
-      params.require(:table).permit(:label, :language_id)
+      params.require(:table).permit(:label)
     end
 end
