@@ -2,7 +2,7 @@
 
 <h1>Tables</h1>
 
-<table>
+<table class="table table-hover table-responsive">
   <thead>
     <tr>
       <th>Label</th>
@@ -16,9 +16,9 @@
       <tr>
         <td><%= table.label %></td>
         <td><%= table.language %></td>
-        <td><%= link_to 'Show', table %></td>
-        <td><%= link_to 'Edit', edit_table_path(table) %></td>
-        <td><%= link_to 'Destroy', table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', table, class: 'btn btn-primary btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_table_path(table), class: 'btn btn-warning btn-xs' %></td>
+        <td><%= link_to 'Destroy', table, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
