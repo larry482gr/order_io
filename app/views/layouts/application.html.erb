@@ -52,9 +52,11 @@
             <li><%= link_to 'Tables', tables_path %></li>
             <li><%= link_to 'Categories', categories_path %></li>
             <li><%= link_to 'Products', products_path %></li>
+            <li><%= link_to 'Sizes', sizes_path %></li>
+            <li><%= link_to 'Additional Info', product_infos_path %></li>
             <!-- <li><%# link_to 'Orders', orders_path %></li> -->
             <li><%= link_to current_user.email, "/users/edit" %></li>
-            <li><%= link_to "Sign out", "/users/sign_out", :method => "DELETE"  %></li>
+            <li><%= link_to 'Sign out', '/users/sign_out', :method => 'DELETE'  %></li>
         <% end %>
       </ul>
     </div>

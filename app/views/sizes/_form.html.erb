@@ -1,0 +1,33 @@
+<div class="row main-form">
+  <div class="col-md-4">
+    <%= form_for(size) do |f| %>
+      <% if size.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(size.errors.count, "error") %> prohibited this size from being saved:</h2>
+
+          <ul>
+          <% size.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :label %>
+        <%= f.text_field :label, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :ordering %>
+        <% order_value = size.new_record? ? Size.count + 1 : size.ordering.nil? ? 1 : size.ordering %>
+        <%= f.number_field :ordering, class: 'form-control', min: 1, value: order_value %>
+      </div>
+
+      <div class="actions">
+        <% submit_label = size.new_record? ? 'Create Size' : 'Update Size' %>
+        <%= f.submit submit_label, class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

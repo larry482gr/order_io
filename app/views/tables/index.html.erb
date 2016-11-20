@@ -14,9 +14,11 @@
     <% @tables.each do |table| %>
       <tr>
         <td><%= table.label %></td>
-        <td><%= link_to 'Show', table, class: 'btn btn-primary btn-xs' %></td>
-        <td><%= link_to 'Edit', edit_table_path(table), class: 'btn btn-warning btn-xs' %></td>
-        <td><%= link_to 'Remove', table, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', table, class: 'btn btn-primary btn-xs' %>
+          <%= link_to 'Edit', edit_table_path(table), class: 'btn btn-warning btn-xs' %>
+          <%= link_to 'Remove', table, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Table', new_table_path %>
+<%= link_to 'New Table', new_table_path, class: 'btn btn-primary btn-xs' %>

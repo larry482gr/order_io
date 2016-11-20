@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row main-form">
   <div class="col-md-4">
     <%= form_for(category) do |f| %>
       <% if category.errors.any? %>
@@ -20,17 +20,13 @@
 
       <div class="form-group">
         <%= f.label :ordering %>
-        <%= f.number_field :ordering, class: 'form-control', min: 1, value: Category.where(language_id: current_user.language_id).count + 1 %>
+        <% order_value = category.new_record? ? Category.where(language_id: current_user.language_id).count + 1 : category.ordering.nil? ? 1 : category.ordering %>
+        <%= f.number_field :ordering, class: 'form-control', min: 1, value: order_value %>
       </div>
 
-        <div class="form-group">
-          <%= f.label :language %>
-          <%= f.collection_select :language_id, Language.order(:id), :id, :option_label, {include_blank: false}, { :class => 'form-control', :value => current_user.language_id} %>
-          <%#= f.select("post", "person_id", Person.all.collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
-        </div>
-
       <div class="actions">
-        <%= f.submit 'Create Category', class: 'btn btn-primary' %>
+        <% submit_label = category.new_record? ? 'Create Category' : 'Update Category' %>
+        <%= f.submit submit_label, class: 'btn btn-primary' %>
       </div>
     <% end %>
   </div>

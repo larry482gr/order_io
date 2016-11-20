@@ -10,15 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113182601) do
+ActiveRecord::Schema.define(version: 20161120135057) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "label"
     t.integer  "ordering"
-    t.integer  "language_id", default: 1
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.index ["language_id"], name: "index_categories_on_language_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "categories_products", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -26,6 +24,16 @@ ActiveRecord::Schema.define(version: 20161113182601) do
     t.integer "product_id",  null: false
     t.index ["category_id", "product_id"], name: "index_categories_products_on_category_id_and_product_id", using: :btree
     t.index ["product_id", "category_id"], name: "index_categories_products_on_product_id_and_category_id", using: :btree
+  end
+
+  create_table "category_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "category_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "label"
+    t.index ["category_id"], name: "index_category_translations_on_category_id", using: :btree
+    t.index ["locale"], name: "index_category_translations_on_locale", using: :btree
   end
 
   create_table "languages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci" do |t|
@@ -54,10 +62,21 @@ ActiveRecord::Schema.define(version: 20161113182601) do
     t.index ["table_id"], name: "index_orders_on_table_id", using: :btree
   end
 
+  create_table "product_info_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "product_info_id", null: false
+    t.string   "locale",          null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "label"
+    t.index ["locale"], name: "index_product_info_translations_on_locale", using: :btree
+    t.index ["product_info_id"], name: "index_product_info_translations_on_product_info_id", using: :btree
+  end
+
   create_table "product_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "ordering"
   end
 
   create_table "product_infos_products", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -66,17 +85,51 @@ ActiveRecord::Schema.define(version: 20161113182601) do
     t.index ["product_id", "product_info_id"], name: "index_product_infos_products_on_product_id_and_product_info_id", using: :btree
   end
 
+  create_table "product_sizes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "product_id"
+    t.integer  "size_id"
+    t.decimal  "price",      precision: 5, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["product_id"], name: "index_product_sizes_on_product_id", using: :btree
+    t.index ["size_id"], name: "index_product_sizes_on_size_id", using: :btree
+  end
+
+  create_table "product_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "product_id",               null: false
+    t.string   "locale",                   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "label"
+    t.string   "description", limit: 1024
+    t.index ["locale"], name: "index_product_translations_on_locale", using: :btree
+    t.index ["product_id"], name: "index_product_translations_on_product_id", using: :btree
+  end
+
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "label"
-    t.string   "description"
+    t.string   "description", limit: 1024
     t.string   "photo"
-    t.text     "sizes",       limit: 65535,                          collation: "utf8_unicode_ci"
-    t.text     "prices",      limit: 65535,                          collation: "utf8_unicode_ci"
     t.integer  "ordering"
-    t.integer  "language_id",               default: 1
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.index ["language_id"], name: "index_products_on_language_id", using: :btree
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "size_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "size_id",    null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "label"
+    t.index ["locale"], name: "index_size_translations_on_locale", using: :btree
+    t.index ["size_id"], name: "index_size_translations_on_size_id", using: :btree
+  end
+
+  create_table "sizes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "ordering"
   end
 
   create_table "tables", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -104,10 +157,10 @@ ActiveRecord::Schema.define(version: 20161113182601) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "categories", "languages"
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "tables"
-  add_foreign_key "products", "languages"
+  add_foreign_key "product_sizes", "products"
+  add_foreign_key "product_sizes", "sizes"
   add_foreign_key "users", "languages"
 end

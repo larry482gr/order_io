@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sizes</h1>
+
+<table class="table table-hover table-responsive">
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sizes.each do |size| %>
+      <tr>
+        <td><%= size.label %></td>
+        <td>
+          <%= link_to 'Show', size, class: 'btn btn-primary btn-xs' %>
+          <%= link_to 'Edit', edit_size_path(size), class: 'btn btn-warning btn-xs' %>
+          <%= link_to 'Remove', size, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @sizes %>
+
+<br>
+
+<%= link_to 'New Size', new_size_path, class: 'btn btn-primary btn-xs' %>

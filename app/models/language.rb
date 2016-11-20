@@ -1,8 +1,6 @@
 class Language < ApplicationRecord
   has_many :users
-  has_many :tables
-  has_many :categories
-  has_many :products
+  has_many :translations
 
   validates :language, presence: true
   validates :locale, presence: true, uniqueness: true
