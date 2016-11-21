@@ -2,6 +2,8 @@
 @import "bootstrap";
 @import "bootstrap/theme";
 
+@import "translations";
+
 html,
 body {
   margin:0;
@@ -126,4 +128,8 @@ img.help-icon {
 
 .main-form {
   margin-bottom: 20px;
+}
+
+.nav-tabs {
+  margin-bottom: 15px;
 }

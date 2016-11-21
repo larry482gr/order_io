@@ -1,24 +1,47 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Table name:</strong>
-  <%= @translation.table_name %>
-</p>
+<h1>Translations</h1>
 
-<p>
-  <strong>Locale:</strong>
-  <%= @translation.locale %>
-</p>
+<div class="dropdown" id="tr-model-dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownModel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Select a Model...
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownModel">
+    <% i = 1 %>
+    <%- @models.each do |model| %>
+      <li><a href="<%= translation_path(id: i) %>"><%= model.humanize %></a></li>
+      <% i = i+1 %>
+    <% end %>
+  </ul>
+</div>
 
-<p>
-  <strong>Reference:</strong>
-  <%= @translation.reference_id %>
-</p>
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <%- @languages.each do |lang| %>
+      <li role="presentation" class="<%= lang.locale == 'en' ? 'active' : '' %>"><a id="<%= lang.locale %>-tab" href="#<%= lang.locale %>" aria-controls="<%= lang.locale %>" role="tab" data-toggle="tab"><%= "#{lang.option_label}" %></a></li>
+    <% end %>
+  </ul>
 
-<p>
-  <strong>Fields:</strong>
-  <%= @translation.fields %>
-</p>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <%- @languages.each do |lang| %>
+      <div role="tabpanel" class="tab-pane fade <%= lang.locale == 'en' ? 'in active' : '' %>" id="<%= lang.locale %>" aria-labelledby="<%= lang.locale %>-tab">
+        <% loc_trans = @translations[lang.locale.to_sym] %>
+        <%- loc_trans.each do |trans| %>
+            <%- @fields.each do |field| %>
+              <p>
+                <label><%= field %></label>
+                <% disabled = lang.locale == 'en' ? 'disabled="disabled"' : ''  %>
+                <input class="translate-input" type="text" <%= disabled %> placeholder="<%= trans[field] %>" data-table="<%= @models[params[:id].to_i - 1] %>" data-reference="<%= trans[:id]  %>" data-locale="<%= lang.locale %>">
+              </p>
+            <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 
-<%= link_to 'Edit', edit_translation_path(@translation) %> |
-<%= link_to 'Back', translations_path %>
+</div>
+
+<%# link_to 'New Translation', new_translation_path %>

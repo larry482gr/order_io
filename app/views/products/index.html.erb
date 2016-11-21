@@ -24,7 +24,7 @@
         <td><%= product.sizes %></td>
         <td><%= product.prices %></td>
         <td><%= product.ordering %></td>
-        <td>
+        <td >
           <%= link_to 'Show', product, class: 'btn btn-primary btn-xs' %>
           <%= link_to 'Edit', edit_product_path(product), class: 'btn btn-warning btn-xs' %>
           <%= link_to 'Remove', product, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %>

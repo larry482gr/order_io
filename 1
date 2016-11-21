@@ -13,7 +13,7 @@ class TranslationsController < ApplicationController
   # GET /translations/1.json
   def show
     @languages = Language.all.order(:id)
-    @fields = @models[params[:id].to_i - 1].classify.constantize::TRANSLATION_FIELDS
+    
   end
 
   # GET /translations/new

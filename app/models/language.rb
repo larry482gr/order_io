@@ -1,5 +1,5 @@
 class Language < ApplicationRecord
-  TRANSLATION_FIELDS = ['language']
+  # TRANSLATION_FIELDS = ['language']
   
   has_many :users
   has_many :translations
