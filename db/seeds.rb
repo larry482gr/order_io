@@ -8,8 +8,12 @@
 
 Language.create([{id: 1, locale: 'en', language: 'english'}, {id: 2, locale: 'gr', language: 'greek'}])
 
-I18n.locale = :en
-Size.create([{label: 'Default'}])
+TranslationField.create([{table_name: Category.table_name, field_keys: [:label]},
+			 {table_name: Size.table_name, field_keys: [:label]},
+			 {table_name: Product.table_name, field_keys: [:label, :description]},
+			 {table_name: ProductInfo.table_name, field_keys: [:label]},
+			 {table_name: Table.table_name, field_keys: [:label]},
+			 {table_name: Language.table_name, field_keys: [:language]}])
 
-I18n.locale = :gr
-Size.create([{label: 'Κανονικό'}])
+Size.create(label: 'Default', ordering: 1)
+Translation.create(table_name: Size.table_name, locale: Language.find(2).locale, reference_id: Size.find(1).id, fields: {label: 'Κανονικό'})

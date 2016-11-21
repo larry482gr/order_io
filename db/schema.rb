@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161120135057) do
+ActiveRecord::Schema.define(version: 20161121092813) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "label"
@@ -26,21 +26,12 @@ ActiveRecord::Schema.define(version: 20161120135057) do
     t.index ["product_id", "category_id"], name: "index_categories_products_on_product_id_and_category_id", using: :btree
   end
 
-  create_table "category_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "category_id", null: false
-    t.string   "locale",      null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "label"
-    t.index ["category_id"], name: "index_category_translations_on_category_id", using: :btree
-    t.index ["locale"], name: "index_category_translations_on_locale", using: :btree
-  end
-
   create_table "languages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci" do |t|
     t.string   "locale",     limit: 5,  null: false
     t.string   "language",   limit: 20, null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.integer  "ordering"
   end
 
   create_table "order_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -60,16 +51,6 @@ ActiveRecord::Schema.define(version: 20161120135057) do
     t.datetime "updated_at",                       null: false
     t.integer  "is_closed",  limit: 1, default: 0
     t.index ["table_id"], name: "index_orders_on_table_id", using: :btree
-  end
-
-  create_table "product_info_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "product_info_id", null: false
-    t.string   "locale",          null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "label"
-    t.index ["locale"], name: "index_product_info_translations_on_locale", using: :btree
-    t.index ["product_info_id"], name: "index_product_info_translations_on_product_info_id", using: :btree
   end
 
   create_table "product_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -95,17 +76,6 @@ ActiveRecord::Schema.define(version: 20161120135057) do
     t.index ["size_id"], name: "index_product_sizes_on_size_id", using: :btree
   end
 
-  create_table "product_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "product_id",               null: false
-    t.string   "locale",                   null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "label"
-    t.string   "description", limit: 1024
-    t.index ["locale"], name: "index_product_translations_on_locale", using: :btree
-    t.index ["product_id"], name: "index_product_translations_on_product_id", using: :btree
-  end
-
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "label"
     t.string   "description", limit: 1024
@@ -113,16 +83,6 @@ ActiveRecord::Schema.define(version: 20161120135057) do
     t.integer  "ordering"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-  end
-
-  create_table "size_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "size_id",    null: false
-    t.string   "locale",     null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "label"
-    t.index ["locale"], name: "index_size_translations_on_locale", using: :btree
-    t.index ["size_id"], name: "index_size_translations_on_size_id", using: :btree
   end
 
   create_table "sizes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -136,6 +96,22 @@ ActiveRecord::Schema.define(version: 20161120135057) do
     t.string   "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "translation_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "table_name", limit: 64
+    t.text     "field_keys", limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "table_name",   limit: 64
+    t.string   "locale",       limit: 16
+    t.integer  "reference_id"
+    t.text     "fields",       limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

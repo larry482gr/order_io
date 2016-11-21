@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all.page(params[:page]).per(params[:limit])
+    @categories = Category.with_translations(I18n.locale).all.order(:ordering).order(:label).page(params[:page]).per(params[:limit])
   end
 
   # GET /categories/1

@@ -5,7 +5,7 @@ class CreateSizes < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
-
+=begin
     reversible do |dir|
       dir.up do
         Size.create_translation_table! label: :string
@@ -15,5 +15,6 @@ class CreateSizes < ActiveRecord::Migration[5.0]
         Size.drop_translation_table!
       end
     end
+=end
   end
 end

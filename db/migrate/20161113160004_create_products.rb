@@ -8,7 +8,7 @@ class CreateProducts < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
-
+=begin
     reversible do |dir|
       dir.up do
         Product.create_translation_table! label: :string,
@@ -19,5 +19,6 @@ class CreateProducts < ActiveRecord::Migration[5.0]
         Product.drop_translation_table!
       end
     end
+=end
   end
 end

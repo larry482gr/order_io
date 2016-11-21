@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  translates :label, :description, :fallbacks_for_empty_translations => true
+  # translates :label, :description, :fallbacks_for_empty_translations => true
 
   mount_uploader :photo, ProductPhotoUploader
 

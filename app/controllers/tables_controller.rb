@@ -4,7 +4,7 @@ class TablesController < ApplicationController
   # GET /tables
   # GET /tables.json
   def index
-    @tables = Table.all.page(params[:page]).per(params[:limit])
+    @tables = Table.all.order(:label).page(params[:page]).per(params[:limit])
   end
 
   # GET /tables/1

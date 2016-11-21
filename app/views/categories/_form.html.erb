@@ -20,7 +20,7 @@
 
       <div class="form-group">
         <%= f.label :ordering %>
-        <% order_value = category.new_record? ? Category.where(language_id: current_user.language_id).count + 1 : category.ordering.nil? ? 1 : category.ordering %>
+        <% order_value = category.new_record? ? Category.count + 1 : category.ordering.nil? ? 1 : category.ordering %>
         <%= f.number_field :ordering, class: 'form-control', min: 1, value: order_value %>
       </div>
 
