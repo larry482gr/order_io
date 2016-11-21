@@ -1,10 +1,11 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.with_translations(I18n.locale).all.order(:ordering).order(:label).page(params[:page]).per(params[:limit])
+    @categories = Category.all.order(:ordering).order(:label).page(params[:page]).per(params[:limit])
   end
 
   # GET /categories/1

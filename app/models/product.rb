@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  # translates :label, :description, :fallbacks_for_empty_translations => true
+  TRANSLATION_FIELDS = ['label', 'description']
 
   mount_uploader :photo, ProductPhotoUploader
 
@@ -13,4 +13,9 @@ class Product < ApplicationRecord
   has_many :sizes, :through => :product_sizes
 
   accepts_nested_attributes_for :product_infos
+
+  # Set translations
+  include Translateable
+  # Set default pagination values.
+  include Pageable
 end

@@ -1,4 +1,5 @@
 class ProductInfosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_product_info, only: [:show, :edit, :update, :destroy]
 
   # GET /product_infos

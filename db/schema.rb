@@ -98,13 +98,6 @@ ActiveRecord::Schema.define(version: 20161121092813) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "translation_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "table_name", limit: 64
-    t.text     "field_keys", limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
   create_table "translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "table_name",   limit: 64
     t.string   "locale",       limit: 16

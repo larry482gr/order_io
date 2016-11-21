@@ -1,10 +1,11 @@
 class SizesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_size, only: [:show, :edit, :update, :destroy]
 
   # GET /sizes
   # GET /sizes.json
   def index
-    @sizes = Size.with_translations(I18n.locale).all.page(params[:page]).per(params[:limit])
+    @sizes = Size.all.order(:ordering).order(:label).page(params[:page]).per(params[:limit])
   end
 
   # GET /sizes/1
