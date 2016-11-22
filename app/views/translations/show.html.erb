@@ -34,7 +34,7 @@
               <p>
                 <label><%= field %></label>
                 <% disabled = lang.locale == 'en' ? 'disabled="disabled"' : ''  %>
-                <input class="translate-input" type="text" <%= disabled %> placeholder="<%= trans[field] %>" data-table="<%= @models[params[:id].to_i - 1] %>" data-reference="<%= trans[:id]  %>" data-locale="<%= lang.locale %>">
+                <input class="translate-input" type="text" <%= disabled %> placeholder="<%= trans[field] %>" data-table="<%= @models[params[:id].to_i - 1] %>" data-reference="<%= trans[:id]  %>" data-locale="<%= lang.locale %>" data-field="<%= field %>">
               </p>
             <% end %>
         <% end %>

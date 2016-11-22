@@ -92,6 +92,6 @@ class TranslationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def translation_params
-      params.require(:translation).permit(:table_name, :locale, :reference_id, :fields)
+      params.require(:translation).permit(:table_name, :locale, :reference_id, fields: [])
     end
 end
