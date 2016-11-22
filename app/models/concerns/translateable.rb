@@ -11,7 +11,7 @@ module Translateable
     translations = Translation.where(table_name: self.class.table_name, locale: I18n.locale, reference_id: self.id).select(:fields).first
     unless translations.nil?
       self.class::TRANSLATION_FIELDS.each do |f|
-        self[f] = translations.fields[f]
+        self[f] = translations.fields[f] unless translations.fields.nil?
       end
     end
   end

@@ -4,7 +4,7 @@
 
 <div class="dropdown" id="tr-model-dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownModel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Select a Model...
+    What to translate?&nbsp;
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownModel">
@@ -16,32 +16,58 @@
   </ul>
 </div>
 
-<div>
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <%- @languages.each do |lang| %>
-      <li role="presentation" class="<%= lang.locale == 'en' ? 'active' : '' %>"><a id="<%= lang.locale %>-tab" href="#<%= lang.locale %>" aria-controls="<%= lang.locale %>" role="tab" data-toggle="tab"><%= "#{lang.option_label}" %></a></li>
-    <% end %>
-  </ul>
+<%- if @translations[:en].count > 0 %>
+  <div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <%- @languages.each do |lang| %>
+        <li role="presentation" class="<%= lang.locale == 'en' ? 'active' : '' %>"><a id="<%= lang.locale %>-tab" href="#<%= lang.locale %>" aria-controls="<%= lang.locale %>" role="tab" data-toggle="tab"><%= "#{lang.option_label}" %></a></li>
+      <% end %>
+    </ul>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <%- @languages.each do |lang| %>
-      <div role="tabpanel" class="tab-pane fade <%= lang.locale == 'en' ? 'in active' : '' %>" id="<%= lang.locale %>" aria-labelledby="<%= lang.locale %>-tab">
-        <% loc_trans = @translations[lang.locale.to_sym] %>
-        <%- loc_trans.each do |trans| %>
-            <%- @fields.each do |field| %>
-              <p>
-                <label><%= field %></label>
-                <% disabled = lang.locale == 'en' ? 'disabled="disabled"' : ''  %>
-                <input class="translate-input" type="text" <%= disabled %> placeholder="<%= trans[field] %>" data-table="<%= @models[params[:id].to_i - 1] %>" data-reference="<%= trans[:id]  %>" data-locale="<%= lang.locale %>" data-field="<%= field %>">
-              </p>
-            <% end %>
-        <% end %>
-      </div>
-    <% end %>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <%- @languages.each do |lang| %>
+        <div role="tabpanel" class="tab-pane fade <%= lang.locale == 'en' ? 'in active' : '' %>" id="<%= lang.locale %>" aria-labelledby="<%= lang.locale %>-tab">
+          <% loc_trans = @translations[lang.locale.to_sym] %>
+          <%- loc_trans.each do |trans| %>
+              <h4><%= trans[@fields.first] %></h4>
+              <%- @fields.each do |field| %>
+                <div>
+                  <%= form_for(field, remote: true, html: { class: 'form-horizontal', onsubmit: 'return false;' }) do |f| %>
+                      <div class="form-group">
+                        <%= f.label field, for: "fields_#{field}", class: 'col-sm-1 control-label' %>
+                        <div class="col-sm-11">
+                          <% disabled = lang.locale == 'en' ? true : false  %>
+                          <%= f.text_field "fields_#{field}",
+                                           id: "fields_#{field}",
+                                           name: "fields_#{field}",
+                                           class: 'translate-input form-control',
+                                           disabled: disabled,
+                                           placeholder: trans[field],
+                                           data: {
+                                               table: @models[params[:id].to_i - 1],
+                                               reference: trans[:id],
+                                               locale: lang.locale,
+                                               field: field
+                                           } %>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+              <% end %>
+              <hr />
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
   </div>
-
-</div>
+<%- else %>
+  <div>
+    Oops! There are no items to translate!<br/>
+    Add some <%= link_to @selected_model.humanize, public_send("#{@selected_model}_path") %> first.
+  </div>
+<% end %>
 
 <%# link_to 'New Translation', new_translation_path %>

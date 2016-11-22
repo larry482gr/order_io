@@ -13,7 +13,7 @@ class TranslationsController < ApplicationController
   # GET /translations/1.json
   def show
     @languages = Language.all.order(:id)
-    @fields = @models[params[:id].to_i - 1].classify.constantize::TRANSLATION_FIELDS
+    @fields = @selected_model.classify.constantize::TRANSLATION_FIELDS
   end
 
   # GET /translations/new
@@ -67,22 +67,23 @@ class TranslationsController < ApplicationController
 
   private
     def set_models
-      @models = ['tables', 'categories', 'products', 'product_info', 'sizes']
+      @models = ['categories', 'products', 'product_infos', 'sizes']
     end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_translation
       init_locale = I18n.locale
       index = params[:id].to_i
+      @selected_model = @models[index - 1]
       @translations = {}
       I18n.locale = :en
-      default = @models[index - 1].classify.constantize.all.order(:id)
+      default = @selected_model.classify.constantize.all.order(:id)
       puts default
       @translations[I18n.locale] = default
       @languages = Language.where.not(locale: 'en').order(:id)
       @languages.each do |lang|
-	I18n.locale = lang.locale.to_sym
-        translation = @models[index - 1].classify.constantize.all.order(:id)
+        I18n.locale = lang.locale.to_sym
+        translation = @selected_model.classify.constantize.all.order(:id)
         puts translation
         @translations[lang.locale.to_sym] = translation
       end
@@ -92,6 +93,6 @@ class TranslationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def translation_params
-      params.require(:translation).permit(:table_name, :locale, :reference_id, fields: [])
+      params.require(:translation).permit(:table_name, :locale, :reference_id, fields: [ :label, :description ])
     end
 end

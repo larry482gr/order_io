@@ -1,5 +1,9 @@
 $(document).ready(function() {
   $('input.translate-input').on('change', function() {
+    if($(this).val().length == 0) {
+        return;
+    }
+
     var fields = {};
     fields[$(this).data("field")] = $(this).val();
     $.ajax({
