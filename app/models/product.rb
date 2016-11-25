@@ -12,7 +12,9 @@ class Product < ApplicationRecord
   has_many :product_sizes
   has_many :sizes, :through => :product_sizes
 
-  accepts_nested_attributes_for :product_infos
+  # accepts_nested_attributes_for :categories
+  # accepts_nested_attributes_for :product_infos
+  accepts_nested_attributes_for :product_sizes
 
   # Set translations
   include Translateable

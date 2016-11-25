@@ -14,6 +14,18 @@
       <% end %>
 
       <div class="form-group">
+      <%= f.label :categories %>
+      <%= hidden_field_tag("product[category_ids][]", nil) %>
+      <%- Category.order(:ordering).order(:label).each do |cat| %>
+          <div class="checkbox">
+              <label>
+                  <%= check_box_tag("product[category_ids][]", cat.id, cat.id.in?(@product.categories.collect(&:id))) %> <%= cat.label %>
+              </label>
+          </div>
+      <% end %>
+      </div>
+
+      <div class="form-group">
         <%= f.label :label %>
         <%= f.text_field :label, class: 'form-control' %>
       </div>
@@ -32,19 +44,36 @@
 
       <div class="form-group">
         <%= f.label :ordering %>
-        <% order_value = product.new_record? ? Product.where(language_id: current_user.language_id).count + 1 : product.ordering.nil? ? 1 : product.ordering %>
+        <% order_value = product.new_record? ? Product.count + 1 : product.ordering.nil? ? 1 : product.ordering %>
         <%= f.number_field :ordering, class: 'form-control', min: 1, value: order_value %>
       </div>
 
-      <%- if ProductInfo.where(language_id: current_user.language_id).count > 0 %>
-          <hr>
-          <div class="form-group">
-            <%= f.label :additional_info %>
-            <%= f.collection_select :additional_info, ProductInfo.where(language_id: current_user.language_id).order(:ordering).order(:label), :id, :label, {include_blank: false}, { :class => 'form-control', :multiple => 'multiple'} %>
+      <div class="form-group">
+      <%= f.label :size_price, 'Size/Price' %>
+      <%- Size.order(:ordering).order(:label).each do |size| %>
+          <div class="checkbox">
+              <label>
+                  <%= check_box_tag("product[product_sizes_attributes][][size_id]", size.id, size.id.in?(@product.product_sizes.collect(&:id)), class: 'price-check') %> <%= size.label %>
+              </label>
           </div>
-          <hr>
+          <% price = @product.product_sizes.find_by_size_id(:size_id).nil? ? nil: @product.product_sizes.find_by_size_id(:size_id).price %>
+          <% disabled = price.nil? ? 'disabled="disabled"' : '' %>
+          <input type="text" name="product[product_sizes_attributes][][price]" value="<%= price  %>" placeholder="Price" <%= disabled %>  />
       <% end %>
+      </div>
 
+      <div class="form-group">
+      <%= f.label :product_info %>
+      <%= hidden_field_tag("product[product_info_ids][]", nil) %>
+      <%- ProductInfo.order(:ordering).order(:label).each do |pinf| %>
+          <div class="checkbox">
+              <label>
+                  <%= check_box_tag("product[product_info_ids][]", pinf.id, pinf.id.in?(@product.product_infos.collect(&:id))) %> <%= pinf.label %>
+              </label>
+          </div>
+      <% end %>
+      </div>
+     
       <div class="actions">
         <% submit_label = product.new_record? ? 'Create Product' : 'Update Product' %>
         <%= f.submit submit_label, class: 'btn btn-primary' %>

@@ -28,7 +28,15 @@ class TranslationsController < ApplicationController
   # POST /translations
   # POST /translations.json
   def create
-    @translation = Translation.new(translation_params)
+    trans_params = translation_params
+    @translation = Translation.where(table_name: trans_params[:table_name], reference_id: trans_params[:reference_id], locale: trans_params[:locale]).first
+    if @translation.nil?
+      @translation = Translation.new(translation_params)
+    else
+      @translation.fields = trans_params[:fields]
+    end
+
+    # @translation = Translation.new(translation_params)
 
     respond_to do |format|
       if @translation.save

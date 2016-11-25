@@ -15,6 +15,7 @@
 //= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require turbolinks-compatibility
 //= require i18n
 //= require i18n/translations
 //= require_tree .

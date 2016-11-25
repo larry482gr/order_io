@@ -14,9 +14,11 @@
     <% @product_infos.each do |product_info| %>
       <tr>
         <td><%= product_info.label %></td>
-        <td><%= link_to 'Show', product_info, class: 'btn btn-primary btn-xs' %></td>
-        <td><%= link_to 'Edit', edit_product_info_path(product_info), class: 'btn btn-warning btn-xs' %></td>
-        <td><%= link_to 'Remove', product_info, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td align="right">
+          <%= link_to 'Show', product_info, class: 'btn btn-primary btn-xs' %>
+          <%= link_to 'Edit', edit_product_info_path(product_info), class: 'btn btn-warning btn-xs' %>
+          <%= link_to 'Remove', product_info, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

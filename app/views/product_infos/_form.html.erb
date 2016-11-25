@@ -20,12 +20,12 @@
 
       <div class="form-group">
         <%= f.label :ordering %>
-        <% order_value = product_info.new_record? ? ProductInfo.where(language_id: current_user.language_id).count + 1 : product_info.ordering.nil? ? 1 : product_info.ordering %>
+        <% order_value = product_info.new_record? ? ProductInfo.count + 1 : product_info.ordering.nil? ? 1 : product_info.ordering %>
         <%= f.number_field :ordering, class: 'form-control', min: 1, value: order_value %>
       </div>
 
       <div class="actions">
-        <% submit_label = product_info.new_record? ? 'Create Additional Info' : 'Update Additional Info' %>
+        <% submit_label = product_info.new_record? ? 'Create Product Info' : 'Update Product Info' %>
         <%= f.submit submit_label, class: 'btn btn-primary' %>
       </div>
     <% end %>
