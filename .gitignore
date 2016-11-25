@@ -71,3 +71,5 @@ config/deploy.rb
 config/deploy
 
 config/local_env.yml
+
+public/uploads
