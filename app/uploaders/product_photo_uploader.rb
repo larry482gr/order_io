@@ -2,7 +2,7 @@ class ProductPhotoUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -13,6 +13,10 @@ class ProductPhotoUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
+
+  # def cache_dir
+  #   "cached_images/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  # end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
@@ -44,16 +48,20 @@ class ProductPhotoUploader < CarrierWave::Uploader::Base
     [/image\//]
   end
 
+  def content_type_blacklist
+    ['application/text', 'application/json']
+  end
+
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
   #   "something.jpg" if original_filename
   # end
 
-  # process :resize_to_fit => [800, 800]
+  process :resize_to_fit => [400, 400]
 
-  # version :thumb do
-  #   process :resize_to_fill => [200,200]
-  # end
+  version :thumb do
+    process :resize_to_fill => [80,80]
+  end
 
 end

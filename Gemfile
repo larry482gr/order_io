@@ -42,10 +42,6 @@ gem 'mini_magick', require: 'mini_magick'
 # Pagination
 gem 'kaminari'
 
-# Translations gem
-gem 'globalize', github: 'globalize/globalize'
-gem 'activemodel-serializers-xml'
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

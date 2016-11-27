@@ -25,3 +25,7 @@ gr:
     activate: 'Ενεργοποίηση'
     deactivate: 'Απενεργοποίηση'
     cancel: 'Ακύρωση'
+
+  errors:
+    messages:
+      mini_magick_processing_error: "Minimagick processing error"

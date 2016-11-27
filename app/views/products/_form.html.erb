@@ -50,15 +50,17 @@
 
       <div class="form-group">
       <%= f.label :size_price, 'Size/Price' %>
+      <% i = 0 %>
       <%- Size.order(:ordering).order(:label).each do |size| %>
           <div class="checkbox">
               <label>
-                  <%= check_box_tag("product[product_sizes_attributes][][size_id]", size.id, size.id.in?(@product.product_sizes.collect(&:id)), class: 'price-check') %> <%= size.label %>
+                  <%= check_box_tag("product[product_sizes_attributes][#{i}][size_id]", size.id, size.id.in?(@product.product_sizes.collect(&:size_id)), class: 'price-check') %> <%= size.label %>
               </label>
           </div>
-          <% price = @product.product_sizes.find_by_size_id(:size_id).nil? ? nil: @product.product_sizes.find_by_size_id(:size_id).price %>
+          <% price = @product.product_sizes.find_by_size_id(size.id).nil? ? nil: @product.product_sizes.find_by_size_id(size.id).price %>
           <% disabled = price.nil? ? 'disabled="disabled"' : '' %>
-          <input type="text" name="product[product_sizes_attributes][][price]" value="<%= price  %>" placeholder="Price" <%= disabled %>  />
+          <input type="text" name="product[product_sizes_attributes][<%= i %>][price]" value="<%= price  %>" placeholder="Price" <%= disabled %>  />
+          <% i += 1 %>
       <% end %>
       </div>
 

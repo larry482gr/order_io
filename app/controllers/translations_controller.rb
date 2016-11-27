@@ -33,7 +33,12 @@ class TranslationsController < ApplicationController
     if @translation.nil?
       @translation = Translation.new(translation_params)
     else
-      @translation.fields = trans_params[:fields]
+      # @translation.fields = trans_params[:fields]
+      trans_params[:fields].each do |field|
+        debug_inspect field
+        debug_inspect trans_params[:fields][field]
+        @translation.fields[field] = trans_params[:fields][field]
+      end
     end
 
     # @translation = Translation.new(translation_params)
