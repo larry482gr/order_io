@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 20161121092813) do
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "tables"
-  add_foreign_key "product_sizes", "products"
-  add_foreign_key "product_sizes", "sizes"
-  add_foreign_key "users", "languages"
+  add_foreign_key "product_sizes", "products", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "product_sizes", "sizes", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "users", "languages", on_update: :cascade
 end
