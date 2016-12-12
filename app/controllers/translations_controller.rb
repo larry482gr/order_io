@@ -1,5 +1,5 @@
 class TranslationsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_models, only: [:index, :show]
   before_action :set_translation, only: [:show, :edit, :update, :destroy]
 
