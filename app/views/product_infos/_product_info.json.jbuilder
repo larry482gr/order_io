@@ -1,2 +1,2 @@
-json.extract! product_info, :id, :label, :created_at, :updated_at
-json.url product_info_url(product_info, format: :json)
+json.extract! product_info, :id, :label, :ordering
+# json.url product_info_url(product_info, format: :json)
