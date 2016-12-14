@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :products]
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
@@ -60,6 +60,15 @@ class CategoriesController < ApplicationController
       format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def products
+    db_conn = ActiveRecord::Base.connection
+    @categories_products = db_conn.exec_query("SELECT * FROM categories_products").to_hash
+
+    respond_to do |format|
+      format.json { render json: @categories_products, status: :ok }
+    end 
   end
 
   private

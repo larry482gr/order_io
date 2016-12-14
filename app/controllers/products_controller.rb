@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :product_infos]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -60,6 +60,15 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def product_infos
+    db_conn = ActiveRecord::Base.connection
+    @product_product_infos = db_conn.exec_query("SELECT * FROM product_infos_products").to_hash
+
+    respond_to do |format|
+      format.json { render json: @product_product_infos, status: :ok }
     end
   end
 
