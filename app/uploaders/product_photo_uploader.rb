@@ -58,10 +58,10 @@ class ProductPhotoUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
-  process :resize_to_fit => [900, 900]
+  process :resize_to_fit => [900, 600]
 
   version :thumb do
-    process :resize_to_fill => [400, 400]
+    process :resize_to_fill => [400, 270]
   end
 
 end
