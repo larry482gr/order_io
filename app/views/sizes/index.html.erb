@@ -17,7 +17,7 @@
         <td align="right">
           <%= link_to 'Show', size, class: 'btn btn-primary btn-xs' %>
           <%= link_to 'Edit', edit_size_path(size), class: 'btn btn-warning btn-xs' %>
-          <%= link_to 'Remove', size, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Remove', size, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } unless size.id == 1  %>
         </td>
       </tr>
     <% end %>
