@@ -19,8 +19,10 @@
       </div>
 
       <div class="actions">
-        <%= f.submit 'Create Table', class: 'btn btn-primary' %>
+        <% submit_label = table.new_record? ? 'Create Table' : 'Update Table' %>
+        <%= f.submit submit_label, class: 'btn btn-primary' %>
       </div>
+
     <% end %>
   </div>
 </div>

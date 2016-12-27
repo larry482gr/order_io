@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   scope '(:locale)', locale: /en|gr/ do
     devise_for :users, :controllers => { registrations: 'registrations' }
+    resources :waiters
     resources :tables
     resources :categories do
       get :products, on: :collection, defaults: { :format => :json }

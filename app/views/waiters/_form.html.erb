@@ -1,0 +1,33 @@
+<div class="row main-form">
+  <div class="col-md-4">
+    <%= form_for(waiter) do |f| %>
+      <% if waiter.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(waiter.errors.count, "error") %> prohibited this waiter from being saved:</h2>
+
+          <ul>
+          <% waiter.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :pin %>
+        <%= f.password_field :pin, class: 'form-control', pattern: '[0-9]{4}', inputmode: 'numeric', title: '4-digit pin', maxlength: 4 %>
+      </div>
+
+      <div class="actions">
+        <% submit_label = waiter.new_record? ? 'Create Waiter' : 'Update Waiter' %>
+        <%= f.submit submit_label, class: 'btn btn-primary' %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

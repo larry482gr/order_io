@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Waiters</h1>
+
+<table class="table table-hover table-responsive">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @waiters.each do |waiter| %>
+      <tr>
+        <td><%= waiter.name %></td>
+        <td align="right">
+          <%= link_to 'Show', waiter, class: 'btn btn-primary btn-xs' %>
+          <%= link_to 'Edit', edit_waiter_path(waiter), class: 'btn btn-warning btn-xs' %>
+          <%= link_to 'Remove', waiter, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @waiters %>
+
+<br>
+
+<%= link_to 'New Waiter', new_waiter_path, class: 'btn btn-primary btn-xs' %>
