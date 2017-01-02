@@ -8,7 +8,6 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html {
         @products = Product.all.order(updated_at: :desc).page(params[:page]).per(params[:limit])
-        render action: index
       }
       format.json {
         @products = Product.all.order(:ordering).order(:label)
