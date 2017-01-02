@@ -5,7 +5,16 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all.order(updated_at: :desc).page(params[:page]).per(params[:limit])
+    respond_to do |format|
+      format.html {
+        @products = Product.all.order(updated_at: :desc).page(params[:page]).per(params[:limit])
+        render @products
+      }
+      format.json {
+        @products = Product.all.order(:ordering).order(:label)
+        render @products
+      }
+    end
   end
 
   # GET /products/1
