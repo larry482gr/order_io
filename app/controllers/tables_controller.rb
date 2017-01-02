@@ -5,7 +5,14 @@ class TablesController < ApplicationController
   # GET /tables
   # GET /tables.json
   def index
-    @tables = Table.all.order(:label).page(params[:page]).per(params[:limit])
+    respond_to do |format|
+      format.html {
+        @tables = Table.all.order(:label).page(params[:page]).per(params[:limit])
+      }
+      format.json {
+        @tables = Table.all.order(:label)
+      }
+    end
   end
 
   # GET /tables/1

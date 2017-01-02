@@ -5,7 +5,14 @@ class SizesController < ApplicationController
   # GET /sizes
   # GET /sizes.json
   def index
-    @sizes = Size.all.order(:ordering).order(:label).page(params[:page]).per(params[:limit])
+    respond_to do |format|
+      format.html {
+        @sizes = Size.all.order(:ordering).order(:label).page(params[:page]).per(params[:limit])
+      }
+      format.json {
+        @sizes = Size.all.order(:ordering).order(:label)
+      }
+    end
   end
 
   # GET /sizes/1
