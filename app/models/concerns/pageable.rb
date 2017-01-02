@@ -1,6 +1,6 @@
 module Pageable
   extend ActiveSupport::Concern
-  DEFAULT_PER_PAGE = 50
+  DEFAULT_PER_PAGE = 20
   RESULTS_PER_PAGE = [50, 100]
 
   included do
