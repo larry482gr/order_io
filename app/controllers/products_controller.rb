@@ -11,7 +11,6 @@ class ProductsController < ApplicationController
       }
       format.json {
         @products = Product.all.order(:ordering).order(:label)
-        render json: @products, status: :ok
       }
     end
   end

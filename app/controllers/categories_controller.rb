@@ -8,11 +8,9 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       format.html {
         @categories = Category.all.order(:ordering).order(:label).page(params[:page]).per(params[:limit])
-        render @categories
       }
       format.json {
         @categories = Category.all.order(:ordering).order(:label)
-        render @categories
       }
     end
   end
