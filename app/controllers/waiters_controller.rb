@@ -17,10 +17,11 @@ class WaitersController < ApplicationController
   def validate
     respond_to do |format|
       if @waiter.pin.to_i == params[:waiter_pin].to_i
-        redirect_to @waiter
+        format.html { render @waiter }
+        format.json { render :show, status: :ok, location: @waiter }
       else
         format.html { redirect_to root_path }
-        format.json { render json: { error: "Not Found", status: :not_found }, status: :not_found }
+        format.json { render json: { error: "Not Found", status: 404 }, status: :not_found }
       end
     end
   end
