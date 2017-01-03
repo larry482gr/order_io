@@ -15,9 +15,9 @@ class WaitersController < ApplicationController
 
   # GET /waiters/:waiter_pin/validate.json
   def validate
-    waiter = Waiter.find_by(pin: params[:waiter_pin])
+    @waiter = Waiter.find_by(pin: params[:waiter_pin])
     respond_to do |format|
-      unless waiter.nil?
+      unless @waiter.nil?
         format.html { redirect_to @waiter }
         format.json { render :show, status: :ok, location: @waiter }
       else
