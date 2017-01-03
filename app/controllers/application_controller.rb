@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery prepend: true, with: :exception
+  protect_from_forgery unless: -> { request.format.json? }, prepend: true, with: :exception
   before_action :set_locale
 
   rescue_from ActionController::UnpermittedParameters, with: :invalid_params

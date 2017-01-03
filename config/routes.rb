@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     devise_for :users, :controllers => { registrations: 'registrations' }
     resources :waiters do
       collection do
-        get '/:waiter_pin/validate', action: :validate, defaults: { format: :json }
+        post :validate, defaults: { format: :json }
       end
     end
     resources :tables
