@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   scope '(:locale)', locale: /en|gr/ do
     devise_for :users, :controllers => { registrations: 'registrations' }
     resources :waiters do
-      member do
-        get 'validate/:waiter_pin', action: :validate, defaults: { format: :json }
+      collection do
+        get '/:waiter_pin/validate', action: :validate, defaults: { format: :json }
       end
     end
     resources :tables

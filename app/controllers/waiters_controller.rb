@@ -13,7 +13,7 @@ class WaitersController < ApplicationController
   def show
   end
 
-  # GET /waiters/:id/validate/:waiter_pin.json
+  # GET /waiters/:waiter_pin/validate.json
   def validate
     respond_to do |format|
       if @waiter.pin.to_i == params[:waiter_pin].to_i
