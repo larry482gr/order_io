@@ -1,6 +1,6 @@
 class WaitersController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_waiter, only: [:show, :edit, :update, :destroy, :validate]
+  before_action :authenticate_user!, except: [:index, :show, :validate]
+  before_action :set_waiter, only: [:show, :edit, :update, :destroy]
 
   # GET /waiters
   # GET /waiters.json
@@ -15,8 +15,9 @@ class WaitersController < ApplicationController
 
   # GET /waiters/:waiter_pin/validate.json
   def validate
+    waiter = Waiter.find_by(pin: params[:waiter_pin])
     respond_to do |format|
-      if @waiter.pin.to_i == params[:waiter_pin].to_i
+      unless waiter.nil?
         format.html { redirect_to @waiter }
         format.json { render :show, status: :ok, location: @waiter }
       else
