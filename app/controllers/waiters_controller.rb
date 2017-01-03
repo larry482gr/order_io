@@ -1,6 +1,6 @@
 class WaitersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_waiter, only: [:show, :edit, :update, :destroy]
+  before_action :set_waiter, only: [:show, :edit, :update, :destroy, :validate]
 
   # GET /waiters
   # GET /waiters.json
@@ -11,6 +11,19 @@ class WaitersController < ApplicationController
   # GET /waiters/1
   # GET /waiters/1.json
   def show
+  end
+
+  # POST /waiters/:id/validate.json
+  def validate
+    respond_to do |format|
+      if @waiter.pin.to_i == params[:pin].to_i
+	format.html { redirect_to @waiter }
+        format.json { render json: @waiter, status: :ok, location: @waiter }
+      else
+        format.html { redirect_to root_path }
+        format.json { render json: { error: "Not Found" }, status: :not_found }
+      end
+    end
   end
 
   # GET /waiters/new
