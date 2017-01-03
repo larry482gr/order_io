@@ -13,10 +13,10 @@ class WaitersController < ApplicationController
   def show
   end
 
-  # POST /waiters/:id/validate.json
+  # GET /waiters/:id/validate/:waiter_pin.json
   def validate
     respond_to do |format|
-      if @waiter.pin.to_i == params[:pin].to_i
+      if @waiter.pin.to_i == params[:waiter_pin].to_i
 	format.html { redirect_to @waiter }
         format.json { render json: @waiter, status: :ok, location: @waiter }
       else
