@@ -17,7 +17,7 @@ class WaitersController < ApplicationController
   def validate
     respond_to do |format|
       if @waiter.pin.to_i == params[:waiter_pin].to_i
-        format.html { render @waiter }
+        format.html { redirect_to @waiter }
         format.json { render :show, status: :ok, location: @waiter }
       else
         format.html { redirect_to root_path }
