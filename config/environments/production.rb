@@ -72,8 +72,8 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Use a different logger for distributed setups.
-  require 'syslog/logger'
-  config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new '/var/log/rails_apps/orderio.log')
+  # require 'syslog/logger'
+  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new '/var/log/rails_apps/orderio.log')
   # config.logger = Syslog::Logger.new('/var/log/rails_apps/orderio.log')
 
   if ENV['RAILS_LOG_TO_STDOUT'].present?
