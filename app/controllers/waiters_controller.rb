@@ -22,7 +22,7 @@ class WaitersController < ApplicationController
         format.json { render :show, status: :ok, location: @waiter }
       else
         format.html { redirect_to root_path }
-        format.json { render json: { error: 'Not Found', status: 404 }, status: :not_found }
+        format.json { render json: { error: 'Not Found', status: 404 }, status: :ok }
       end
     end
   end
