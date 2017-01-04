@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161227130808) do
+ActiveRecord::Schema.define(version: 20170104100217) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "label"
@@ -39,10 +39,13 @@ ActiveRecord::Schema.define(version: 20161227130808) do
     t.integer  "product_id"
     t.integer  "quantity"
     t.text     "metadata",   limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "size_id"
+    t.decimal  "price",                    precision: 5, scale: 2
     t.index ["order_id"], name: "index_order_products_on_order_id", using: :btree
     t.index ["product_id"], name: "index_order_products_on_product_id", using: :btree
+    t.index ["size_id"], name: "index_order_products_on_size_id", using: :btree
   end
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -135,6 +138,7 @@ ActiveRecord::Schema.define(version: 20161227130808) do
 
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
+  add_foreign_key "order_products", "sizes", on_update: :cascade, on_delete: :nullify
   add_foreign_key "orders", "tables"
   add_foreign_key "product_sizes", "products", on_update: :cascade, on_delete: :cascade
   add_foreign_key "product_sizes", "sizes", on_update: :cascade, on_delete: :cascade
