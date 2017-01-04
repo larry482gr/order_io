@@ -73,8 +73,8 @@ Rails.application.configure do
 
   # Use a different logger for distributed setups.
   require 'syslog/logger'
-  config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'orderio_api')
-  # config.logger = SyslogLogger.new('/var/log/<APP_NAME>.log')
+  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'orderio_api')
+  config.logger = SyslogLogger.new('/var/log/rails_apps/orderio.log')
 
   if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
