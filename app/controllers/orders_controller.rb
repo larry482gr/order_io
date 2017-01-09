@@ -29,9 +29,9 @@ class OrdersController < ApplicationController
     order_products_params = order_pars.delete(:order_products_attributes)
 
     logger.info "\n\n\n"
-    logger.info order_pars
+    logger.info order_pars.inspect
     logger.info "\n\n\n"
-    logger.info order_products_params
+    logger.info order_products_params.inspect
     logger.info "\n\n\n"
 
     @order = Order.new(order_pars)
