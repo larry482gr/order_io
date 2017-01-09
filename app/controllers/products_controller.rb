@@ -72,7 +72,7 @@ class ProductsController < ApplicationController
 
   def product_infos
     db_conn = ActiveRecord::Base.connection
-    @product_product_infos = db_conn.exec_query("SELECT * FROM product_infos_products").to_hash
+    @product_product_infos = db_conn.exec_query('SELECT * FROM product_infos_products').to_hash
 
     respond_to do |format|
       format.json { render json: @product_product_infos, status: :ok }
