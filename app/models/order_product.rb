@@ -3,5 +3,5 @@ class OrderProduct < ApplicationRecord
   belongs_to :product
   belongs_to :size
 
-  serialize :metadata, JSON
+  # serialize :metadata, JSON
 end
