@@ -25,23 +25,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    order_pars = order_params
-    order_products_params = order_pars.delete(:order_products_attributes)
-
-    logger.info "\n\n\n"
-    logger.info order_pars.inspect
-    logger.info "\n\n\n"
-    logger.info order_products_params.inspect
-    logger.info "\n\n\n"
-
-    @order = Order.new(order_pars)
-
-    order_products = []
-    order_products_params.each do |pr_attr|
-      order_products << OrderProduct.new(pr_attr)
-    end
-
-    @order.order_products = order_products
+    @order = Order.new(order_params)
 
     respond_to do |format|
       if @order.save
