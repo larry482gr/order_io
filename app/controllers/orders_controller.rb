@@ -26,6 +26,11 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    unless order_params[:order][:order_products_attributes].nil?
+      order_params[:order][:order_products_attributes].each do |pr_attr|
+        @order.order_products.build pr_attr
+      end
+    end
 
     respond_to do |format|
       if @order.save
