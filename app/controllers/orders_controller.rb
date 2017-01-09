@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    order_products_params = order.delete(:order_products_attributes)
+    order_products_params = order_params.delete(:order_products_attributes)
     @order = Order.new(order_params)
     order_products_params.each do |pr_attr|
       @order.order_products = OrderProduct.new(pr_attr)
