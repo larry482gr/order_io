@@ -27,6 +27,13 @@ class OrdersController < ApplicationController
   def create
     order_pars = order_params
     order_products_params = order_pars.delete(:order_products_attributes)
+
+    puts "\n\n\n"
+    puts order_pars
+    puts "\n\n\n"
+    puts order_products_params
+    puts "\n\n\n"
+
     @order = Order.new(order_pars)
     order_products_params.each do |pr_attr|
       @order.order_products.build pr_attr
