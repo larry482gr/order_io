@@ -27,9 +27,9 @@ class OrdersController < ApplicationController
   def create
     order_products_params = order_params.delete(:order_products_attributes)
     @order = Order.new(order_params)
-    # order_products_params.each do |pr_attr|
-    #   @order.order_products = OrderProduct.new(pr_attr)
-    # end
+    order_products_params.each do |pr_attr|
+      @order.order_products.build pr_attr
+    end
 
     respond_to do |format|
       if @order.save
