@@ -36,9 +36,12 @@ class OrdersController < ApplicationController
 
     @order = Order.new(order_pars)
 
-    #order_products_params.each do |pr_attr|
-    #  @order.order_products.build pr_attr
-    #end
+    order_products = []
+    order_products_params.each do |pr_attr|
+      order_products << OrderProduct.new(pr_attr)
+    end
+
+    @order.order_products = order_products
 
     respond_to do |format|
       if @order.save
