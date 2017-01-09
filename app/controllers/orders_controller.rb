@@ -35,9 +35,10 @@ class OrdersController < ApplicationController
     logger.info "\n\n\n"
 
     @order = Order.new(order_pars)
-    order_products_params.each do |pr_attr|
-      @order.order_products.build pr_attr
-    end
+
+    #order_products_params.each do |pr_attr|
+    #  @order.order_products.build pr_attr
+    #end
 
     respond_to do |format|
       if @order.save
