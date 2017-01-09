@@ -26,11 +26,6 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    unless order_params[:order_products_attributes].nil?
-      order_params[:order_products_attributes].each do |pr_attr|
-        @order.order_products.build pr_attr
-      end
-    end
 
     respond_to do |format|
       if @order.save
@@ -75,6 +70,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:table_id, :is_closed, { order_products_attributes: [ :product_id, :size_id, :price, :metadata, :quantity ] })
+      params.require(:order).permit(:table_id, :is_closed, order_products_attributes: [ :product_id, :size_id, :price, :metadata, :quantity ])
     end
 end
