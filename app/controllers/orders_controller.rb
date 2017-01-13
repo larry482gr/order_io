@@ -15,8 +15,12 @@ class OrdersController < ApplicationController
 
   # GET /orders/by_table.json
   def by_table
-    @order = Order.find_by(table_id: params[:table_id], is_closed: false)
-    render :show
+    @order = Order.includes(:order_products).find_by(table_id: params[:table_id], is_closed: false)
+    unless @order.nil?
+      render :show
+    else
+      render json: { error: 'Not Found', status: 404 }, status: :ok
+    end
   end
 
   # GET /orders/new
