@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :create, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show, :by_table, :create, :update, :destroy]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
