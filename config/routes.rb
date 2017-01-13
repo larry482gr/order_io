@@ -19,7 +19,9 @@ Rails.application.routes.draw do
 
     resources :languages, only: [:index], defaults: { format: :json }
     resources :product_sizes, only: [:index], defaults: { format: :json }
-    resources :orders
+    resources :orders do
+      get '/by_table/:table_id', to: 'orders#by_table', as: :by_table, on: :collection, defaults: { format: :json}
+    end
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     root to: 'visitors#index'
   end

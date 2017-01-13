@@ -13,6 +13,12 @@ class OrdersController < ApplicationController
   def show
   end
 
+  # GET /orders/by_table.json
+  def by_table
+    @order = Order.find_by(table_id: params[:table_id], is_closed: false)
+    render :show
+  end
+
   # GET /orders/new
   def new
     @order = Order.new
