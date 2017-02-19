@@ -16,19 +16,19 @@
   </ul>
 </div>
 
-<%- if @translations[:en].count > 0 %>
+<%- if @translations[:gr].count > 0 %>
   <div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <%- @languages.each do |lang| %>
-        <li role="presentation" class="<%= lang.locale == 'en' ? 'active' : '' %>"><a id="<%= lang.locale %>-tab" href="#<%= lang.locale %>" aria-controls="<%= lang.locale %>" role="tab" data-toggle="tab"><%= "#{lang.option_label}" %></a></li>
+        <li role="presentation" class="<%= lang.locale == 'gr' ? 'active' : '' %>"><a id="<%= lang.locale %>-tab" href="#<%= lang.locale %>" aria-controls="<%= lang.locale %>" role="tab" data-toggle="tab"><%= "#{lang.option_label}" %></a></li>
       <% end %>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
       <%- @languages.each do |lang| %>
-        <div role="tabpanel" class="tab-pane fade <%= lang.locale == 'en' ? 'in active' : '' %>" id="<%= lang.locale %>" aria-labelledby="<%= lang.locale %>-tab">
+        <div role="tabpanel" class="tab-pane fade <%= lang.locale == 'gr' ? 'in active' : '' %>" id="<%= lang.locale %>" aria-labelledby="<%= lang.locale %>-tab">
           <% loc_trans = @translations[lang.locale.to_sym] %>
           <%- loc_trans.each do |trans| %>
               <h4><%= trans[@fields.first] %></h4>
@@ -38,7 +38,7 @@
                       <div class="form-group">
                         <%= f.label field, for: "fields_#{field}", class: 'col-sm-1 control-label' %>
                         <div class="col-sm-11">
-                          <% disabled = lang.locale == 'en' ? true : false  %>
+                          <% disabled = lang.locale == 'gr' ? true : false  %>
                           <%= f.text_field "fields_#{field}",
                                            id: "fields_#{field}",
                                            name: "fields_#{field}",

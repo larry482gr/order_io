@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
         language = current_user.language
         params[:locale] = language.locale
       rescue ActiveRecord::RecordNotFound
-        params[:locale] = 'en'
+        params[:locale] = 'gr'
       end
     end
     I18n.locale = params[:locale]
