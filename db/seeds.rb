@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Language.create([{id: 1, locale: 'en', language: 'english'}, {id: 2, locale: 'gr', language: 'greek'}])
+Language.create([{id: 2, locale: 'en', language: 'english'}, {id: 1, locale: 'gr', language: 'greek'}])
 
 Size.create(label: 'Κανονικό', ordering: 1)
-Translation.create(table_name: Size.table_name, locale: Language.find(1).locale, reference_id: Size.find(1).id, fields: {label: 'Default'})
+Translation.create(table_name: Size.table_name, locale: Language.find(2).locale, reference_id: Size.find(1).id, fields: {label: 'Default'})
